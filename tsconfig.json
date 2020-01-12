@@ -6,7 +6,11 @@
         "target": "ES5",
         "allowJs": true,
         "sourceMap": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "strict": true,
+        "noUnusedLocals": true
     },
     "include": [
         "src/**/*.ts"
