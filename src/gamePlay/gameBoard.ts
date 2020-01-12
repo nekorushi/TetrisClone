@@ -1,6 +1,6 @@
-import { BlockColors } from "./blocks/blockTypes"
+import { BlockColor } from "../data/blocks/types"
 
-type Board = BlockColors[][]
+type Board = BlockColor[][]
 
 export default class GameBoard {
     height: number
@@ -20,7 +20,7 @@ export default class GameBoard {
 
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
-                board[x][y] = BlockColors.Empty
+                board[x][y] = BlockColor.Empty
             }
         }
 

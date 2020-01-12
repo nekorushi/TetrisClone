@@ -1,29 +1,9 @@
-export enum BlockColors {
-    Empty,
-    Blue,
-    Green,
-    LightBlue,
-    Orange,
-    Pink,
-    Red,
-    Violet,
-    Yellow
-}
+import { BlockColor } from "./types"
+import { Block } from "../../gamePlay/block"
 
-export const BlockImages = {
-    [BlockColors.Blue]: 'block_blue.png',
-    [BlockColors.Green]: 'block_green.png',
-    [BlockColors.LightBlue]: 'block_light_blue.png',
-    [BlockColors.Orange]: 'block_orange.png',
-    [BlockColors.Pink]: 'block_pink.png',
-    [BlockColors.Red]: 'block_red.png',
-    [BlockColors.Violet]: 'block_violet.png',
-    [BlockColors.Yellow]: 'block_yellow.png'
-}
-
-export const Blocks = [
+export const Blocks: Block[] = [
     {
-        color: BlockColors.Green,
+        color: BlockColor.Green,
         variants: [[
             [1, 0],
             [1, 1],
@@ -34,14 +14,14 @@ export const Blocks = [
         ]]
     },
     {
-        color: BlockColors.Orange,
+        color: BlockColor.Orange,
         variants: [[
             [1, 1],
             [1, 1]
         ]]
     },
     {
-        color: BlockColors.Violet,
+        color: BlockColor.Violet,
         variants: [[
             [1,  1,  1,  1]
         ], [
@@ -52,7 +32,7 @@ export const Blocks = [
         ]]
     },
     {
-        color: BlockColors.LightBlue,
+        color: BlockColor.LightBlue,
         variants: [[
             [0, 1],
             [1, 1],
@@ -70,7 +50,7 @@ export const Blocks = [
         ]]
     },
     {
-        color: BlockColors.Blue,
+        color: BlockColor.Blue,
         variants: [[
             [1, 1, 1],
             [1, 0, 0]
@@ -88,7 +68,7 @@ export const Blocks = [
         ]]
     },
     {
-        color: BlockColors.Red,
+        color: BlockColor.Red,
         variants: [[
             [1, 1, 0],
             [0, 1, 1]
@@ -99,7 +79,7 @@ export const Blocks = [
         ]]
     },
     {
-        color: BlockColors.Pink,
+        color: BlockColor.Pink,
         variants: [[
             [1, 1, 1],
             [0, 0, 1]
@@ -117,7 +97,7 @@ export const Blocks = [
         ]]
     },
     {
-        color: BlockColors.Yellow,
+        color: BlockColor.Yellow,
         variants: [[
             [1, 1, 1],
             [1, 1, 1]
