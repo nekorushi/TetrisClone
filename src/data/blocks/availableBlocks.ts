@@ -1,7 +1,6 @@
 import { BlockColor } from "./types"
-import { Block } from "../../gamePlay/block"
 
-export const Blocks: Block[] = [
+export const Blocks = [
     {
         color: BlockColor.Green,
         variants: [[
