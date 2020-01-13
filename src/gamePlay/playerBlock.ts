@@ -19,20 +19,22 @@ export default class PlayerBlock {
     position: Vector2 = new Vector2()
     blockRandomizer: BlockRandomizer
 
-    constructor(board: Board, onPlayerMove?: Function) {
-        this.onPlayerMove = onPlayerMove
+    constructor(board: Board) {
         this.blockRandomizer = new BlockRandomizer()
-        this.rollNextBlock()
+        this.setCurrentBlock(this.blockRandomizer.getRandomBlock())
         this.board = board
         
         window.addEventListener('keydown', (event) => {this.inputHandler(event)})
     }
 
-    rollNextBlock() {
-        const newBlock = this.blockRandomizer.getRandomBlock()
+    setCurrentBlock(block: Block) {        
+        this.currentBlock = block
+        this.resetPosition()
+    }
+
+    resetPosition() {
         const boardWidth = getSetting('board.width')
-        const blockWidth = newBlock.getCurrentVariant().cells[0].length
-        this.currentBlock = newBlock        
+        const blockWidth = this.currentBlock.getCurrentVariant().cells[0].length
         this.position = new Vector2(Math.floor(boardWidth / 2 - blockWidth / 2), 0)
     }
 
@@ -67,9 +69,9 @@ export default class PlayerBlock {
             this.board.checkForFullRow(this.position.y + row)
         })
         
-        this.rollNextBlock()
+        this.setCurrentBlock(this.blockRandomizer.getRandomBlock())
     }
-
+    
     inputHandler(event: KeyboardEvent) {        
         switch (event.code) {
             case KEY.UP:
