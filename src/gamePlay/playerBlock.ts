@@ -21,14 +21,14 @@ export default class PlayerBlock {
 
     constructor(board: Board) {
         this.blockRandomizer = new BlockRandomizer()
-        this.setCurrentBlock(this.blockRandomizer.getRandomBlock())
         this.board = board
+        this.resetCurrentBlock()
         
         window.addEventListener('keydown', (event) => {this.inputHandler(event)})
     }
 
-    setCurrentBlock(block: Block) {        
-        this.currentBlock = block
+    resetCurrentBlock() {        
+        this.currentBlock = this.blockRandomizer.getRandomBlock()
         this.resetPosition()
     }
 
@@ -36,6 +36,11 @@ export default class PlayerBlock {
         const boardWidth = getSetting('board.width')
         const blockWidth = this.currentBlock.getCurrentVariant().cells[0].length
         this.position = new Vector2(Math.floor(boardWidth / 2 - blockWidth / 2), 0)
+        
+        if (this.hasCollisions()) {
+            this.board.resetBoard()
+            this.resetCurrentBlock()
+        }
     }
 
     rotate() {
@@ -52,9 +57,13 @@ export default class PlayerBlock {
         return canBePlaced
     }
 
-    drop() {        
+    drop() {
         const canGoDown = this.move(new Vector2(0, 1))
-        if (!canGoDown) this.lockIn()
+        if (canGoDown) {
+            this.drop()
+        } else {
+            this.lockIn()
+        }
     }
 
     lockIn() {
@@ -69,7 +78,11 @@ export default class PlayerBlock {
             this.board.checkForFullRow(this.position.y + row)
         })
         
-        this.setCurrentBlock(this.blockRandomizer.getRandomBlock())
+        this.resetCurrentBlock()
+    }
+
+    hasCollisions() {
+        return !this.board.canBePlacedAt(this.position, this.currentBlock)
     }
     
     inputHandler(event: KeyboardEvent) {        

@@ -9,12 +9,16 @@ import { getSetting } from "../config"
 export default class Board {
     height: number
     width: number
-    board: BlockColor[][]
+    board!: BlockColor[][]
 
     constructor(width: number, height: number) {
         this.height = height
         this.width = width
-        this.board = this.generateEmptyBoard(width, height)
+        this.resetBoard()
+    }
+
+    resetBoard() {
+        this.board = this.generateEmptyBoard(this.width, this.height)
     }
 
     generateEmptyBoard(width: number, height: number): BlockColor[][] {
