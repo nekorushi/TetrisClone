@@ -10,8 +10,6 @@ export enum BlockColor {
     Yellow
 }
 
-export type BlockVariant = BlockColor[][]
-
 export const BlockImages = {
     [BlockColor.Blue]: 'assets/images/blocks/block_blue.png',
     [BlockColor.Green]: 'assets/images/blocks/block_green.png',

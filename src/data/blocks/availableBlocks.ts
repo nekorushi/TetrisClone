@@ -1,109 +1,116 @@
 import { BlockColor } from "./types"
+import Block from "../../gamePlay/block"
+import BlockVariant from "./blockVariant"
 
-export const Blocks = [
-    {
-        color: BlockColor.Green,
-        variants: [[
+export const Blocks: Block[] = [
+    new Block(BlockColor.Green, [
+        new BlockVariant([
             [1, 0],
             [1, 1],
             [0, 1]
-        ], [
+        ]), 
+        new BlockVariant([
             [0,  1,  1],
             [1,  1,  0]
-        ]]
-    },
-    {
-        color: BlockColor.Orange,
-        variants: [[
+        ])
+    ]),
+    new Block(BlockColor.Orange, [
+        new BlockVariant([
             [1, 1],
             [1, 1]
-        ]]
-    },
-    {
-        color: BlockColor.Violet,
-        variants: [[
+        ])
+    ]),
+    new Block(BlockColor.Violet, [
+        new BlockVariant([
             [1,  1,  1,  1]
-        ], [
+        ]),
+        new BlockVariant([
             [1],
             [1],
             [1],
             [1]
-        ]]
-    },
-    {
-        color: BlockColor.LightBlue,
-        variants: [[
+        ])
+    ]),
+    new Block(BlockColor.LightBlue, [
+        new BlockVariant([
             [0, 1],
             [1, 1],
             [0, 1]
-        ], [
+        ]), 
+        new BlockVariant([
             [0, 1, 0],
             [1, 1, 1]
-        ], [
+        ]),
+        new BlockVariant([
             [1, 0],
             [1, 1],
             [1, 0]
-        ], [
+        ]),
+        new BlockVariant([
             [1, 1, 1],
             [0, 1, 0]
-        ]]
-    },
-    {
-        color: BlockColor.Blue,
-        variants: [[
+        ])
+    ]),
+    new Block(BlockColor.Blue, [
+        new BlockVariant([
             [1, 1, 1],
             [1, 0, 0]
-        ], [
+        ]),
+        new BlockVariant([
             [1, 1],
             [0, 1],
             [0, 1]
-        ], [
+        ]),
+        new BlockVariant([
             [0, 0, 1],
             [1, 1, 1]
-        ], [
+        ]),
+        new BlockVariant([
             [1, 0],
             [1, 0],
             [1, 1]
-        ]]
-    },
-    {
-        color: BlockColor.Red,
-        variants: [[
+        ])
+    ]),
+    new Block(BlockColor.Red, [
+        new BlockVariant([
             [1, 1, 0],
             [0, 1, 1]
-        ], [
+        ]),
+        new BlockVariant([
             [0, 1],
             [1, 1],
             [1, 0]
-        ]]
-    },
-    {
-        color: BlockColor.Pink,
-        variants: [[
+        ])
+    ]),
+    new Block(BlockColor.Pink, [
+        new BlockVariant([
             [1, 1, 1],
             [0, 0, 1]
-        ], [
+        ]),
+        new BlockVariant([
             [0, 1],
             [0, 1],
             [1, 1]
-        ], [
+        ]),
+        new BlockVariant([
             [1, 0, 0],
             [1, 1, 1]
-        ], [
+        ]),
+        new BlockVariant([
             [1, 1],
             [1, 0],
             [1, 0]
-        ]]
-    },
-    {
-        color: BlockColor.Yellow,
-        variants: [[
+        ])
+    ]),
+    new Block(BlockColor.Yellow, [
+        new BlockVariant([
             [1, 1, 1],
             [1, 1, 1]
-        ], [
+        ]),
+        new BlockVariant([
             [1, 1],
             [1, 1],
             [1, 1]
-        ]]
-    }
+        ])
+    ]),
 ]

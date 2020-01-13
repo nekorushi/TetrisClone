@@ -1,44 +1,26 @@
-import { BlockVariant, BlockColor } from "../data/blocks/types";
-import { Vector2 } from "../data/common/types";
+import { BlockColor } from "../data/blocks/types";
+import BlockVariant from "../data/blocks/blockVariant";
 
-export class Block {
-    color: BlockColor
+export default class Block {
+    type: BlockColor
     variants: BlockVariant[]
-    private _currentVariant: number
+    private currentVariant: number
 
-    constructor(color: BlockColor, variants: BlockVariant[]) {
-        this._currentVariant = 0
-        this.color = color
+    constructor(type: BlockColor, variants: BlockVariant[]) {
+        this.currentVariant = 0
+        this.type = type
         this.variants = variants
     }
-
-    getCurrentVariant = () => this.variants[this._currentVariant]
-
-    getSize(): Vector2 {
-        const block = this.getCurrentVariant()
-        return {
-            x: block[0].length,
-            y: block.length
-        }
-    }
-
-    forEachCell(callback: (cellMeta: Vector2) => boolean) {
-        const blockRows = this.getCurrentVariant()
-        for (let y = 0; y < blockRows.length; y++) {
-            const row = blockRows[y]
-
-            for (let x = 0; x < row.length; x++) {
-                const cell = row[x]
-                if (cell !== BlockColor.Empty) {
-                    if (callback({ x, y })) return
-                }
-            }
-
-        }
+    
+    getVariant = (variant: number) => this.variants[variant]
+    getCurrentVariant = () => this.getVariant(this.currentVariant)
+    getNextVariant = () => this.getVariant(this.getNextVariantIndex())
+    getNextVariantIndex() {
+        const nextVariant = this.currentVariant + 1        
+        return nextVariant >= this.variants.length ? 0 : nextVariant
     }
 
     rotate() {
-        this._currentVariant++
-        if (this._currentVariant >= this.variants.length) this._currentVariant = 0
+        this.currentVariant = this.getNextVariantIndex()        
     }
 }

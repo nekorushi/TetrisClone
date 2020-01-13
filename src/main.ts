@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js'
 import { getSetting } from './config'
 import { loadAssets } from './data/assets/assetsResolver'
 
+import GameBoardScene from './scenes/gameBoard'
 
 const webGLSupported = PIXI.utils.isWebGLSupported()
 const type = webGLSupported ? "WebGL" : "canvas"
@@ -14,6 +15,10 @@ const app = new PIXI.Application({
 })
 
 const onAssetsLoaded = (): void => {
+    const gameBoardScene = new GameBoardScene()
+    app.stage.addChild(gameBoardScene.renderContainer)
+
+    gameBoardScene.renderBoard()
 }
 
 document.body.appendChild(app.view)
