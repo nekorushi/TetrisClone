@@ -10,10 +10,12 @@ export default class Board {
     height: number
     width: number
     board!: BlockColor[][]
+    onRowDestroy: Function
 
     constructor(width: number, height: number) {
         this.height = height
         this.width = width
+        this.onRowDestroy = () => {}
         this.resetBoard()
     }
 
@@ -74,6 +76,11 @@ export default class Board {
             .map(() => BlockColor.Empty)
         
         this.board.unshift(newEmptyRow)
+        this.onRowDestroy()
+    }
+
+    handleRowDestroy(callback: () => void) {
+        this.onRowDestroy = callback
     }
 
     forEachCell(fn: (position: Vector2, type: BlockColor) => void) {

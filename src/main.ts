@@ -17,11 +17,7 @@ const app = new PIXI.Application({
 const onAssetsLoaded = (): void => {
     const gameBoardScene = new GameBoardScene()
     app.stage.addChild(gameBoardScene.renderer.renderContainer)    
-    app.ticker.add(update)
-}
-
-const update = (dt: number): void => {
-    
+    app.ticker.add((dt) => gameBoardScene.update(dt))
 }
 
 document.body.appendChild(app.view)

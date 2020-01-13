@@ -16,6 +16,7 @@ export default class BoardRenderer {
     player: PlayerBlock
     boardController: Board
     sprites: PIXI.Sprite[][] = []
+    score!: PIXI.Text
 
     settings = {
         cellWidth: getSetting('board.cell.width'),
@@ -29,7 +30,34 @@ export default class BoardRenderer {
         this.boardController = boardController
         this.renderContainer = this.initializeScene()
         this.renderBoard()
-        this.player.onPlayerMove = () => this.renderBoard()
+        this.renderScore()
+        this.player.handlePlayerMove(() => this.renderBoard())
+    }
+
+    initializeScene() {
+        const scene = new PIXI.Container()
+        const resources = PIXI.Loader.shared.resources
+        
+        const background = new PIXI.Sprite(resources['assets/images/bg_full.jpg'].texture)
+        scene.addChild(background)
+        return scene
+    }
+
+    renderScore() {
+        const label = new PIXI.Text('Score')        
+        label.x = 550
+        label.y = 30
+        
+        this.score = new PIXI.Text('0')
+        this.score.x = 575
+        this.score.y = 60
+        
+        this.renderContainer.addChild(label)
+        this.renderContainer.addChild(this.score)
+    }
+
+    setScore(value: number) {
+        this.score.text = `${value}`
     }
     
     renderBoard() {
@@ -40,15 +68,6 @@ export default class BoardRenderer {
         playerBlock.getCurrentVariant().forEachCell((position: Vector2) => {
             this.renderCell(position.add(this.player.position), playerBlock.type)
         })
-    }
-
-    initializeScene() {
-        const scene = new PIXI.Container()
-        const resources = PIXI.Loader.shared.resources
-        
-        const background = new PIXI.Sprite(resources['assets/images/bg_full.jpg'].texture)
-        scene.addChild(background)
-        return scene
     }
 
     renderCell(position: Vector2, cellColor: BlockColor) {

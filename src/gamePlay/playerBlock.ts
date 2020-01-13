@@ -14,7 +14,7 @@ const KEY = {
 
 export default class PlayerBlock {
     currentBlock!: Block
-    onPlayerMove?: Function
+    onPlayerMove: Function
     board: Board
     position: Vector2 = new Vector2()
     blockRandomizer: BlockRandomizer
@@ -23,6 +23,7 @@ export default class PlayerBlock {
         this.blockRandomizer = new BlockRandomizer()
         this.board = board
         this.resetCurrentBlock()
+        this.onPlayerMove = () => {}
         
         window.addEventListener('keydown', (event) => {this.inputHandler(event)})
     }
@@ -47,23 +48,29 @@ export default class PlayerBlock {
         const newRotation = this.currentBlock.getNextVariant()
         if (this.board.canBePlacedAt(this.position, this.currentBlock, newRotation)) {
             this.currentBlock.rotate()
+            this.onPlayerMove()
         }        
     }
 
     move(direction: Vector2) {
         const newPosition = this.position.add(direction)
         const canBePlaced = this.board.canBePlacedAt(newPosition, this.currentBlock)
-        if (canBePlaced) this.position = newPosition
+        if (canBePlaced) {
+            this.position = newPosition
+            this.onPlayerMove()
+        }
         return canBePlaced
     }
 
-    drop() {
+    drop(hardDrop: boolean = false) {
         const canGoDown = this.move(new Vector2(0, 1))
         if (canGoDown) {
-            this.drop()
+            if (hardDrop) this.drop(true)
         } else {
             this.lockIn()
         }
+
+        this.onPlayerMove()
     }
 
     lockIn() {
@@ -84,6 +91,10 @@ export default class PlayerBlock {
     hasCollisions() {
         return !this.board.canBePlacedAt(this.position, this.currentBlock)
     }
+
+    handlePlayerMove(callback: () => void) {
+        this.onPlayerMove = callback
+    }
     
     inputHandler(event: KeyboardEvent) {        
         switch (event.code) {
@@ -97,9 +108,8 @@ export default class PlayerBlock {
                 this.move(new Vector2(1, 0))
                 break;
             case KEY.DOWN:
-                this.drop()
+                this.drop(true)
                 break;
         }
-        this.onPlayerMove && this.onPlayerMove()
     }    
 }

@@ -19,5 +19,8 @@ const config = {
             width: 42,
             height: 42
         }
+    },
+    gameplay: {
+        stepIntervals: 30
     }
 }
